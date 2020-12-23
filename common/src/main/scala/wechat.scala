@@ -1,6 +1,10 @@
+package miniprogram
+
 import scala.scalajs.js
 import js.Dynamic.literal
+import scala.scalajs.js.annotation._
 
+@JSExportTopLevel("Wechat")
 object Wechat {
   type Callback = () => Unit 
   type ErrorCallback = (Throwable) => Unit
