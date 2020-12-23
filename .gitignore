@@ -1,0 +1,15 @@
+target/
+.idea
+*.swp
+*.gem
+*.lock
+*.jar
+*.hnir
+.ensime
+.ensime_cache
+.ropeproject
+**/.bloop/
+.metals/
+.bsp/
+project/project/
+project/metals.sbt
