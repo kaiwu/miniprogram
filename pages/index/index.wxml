@@ -1,0 +1,6 @@
+<wxs module="Index">
+</wxs>
+<view>
+  <view>{{label}}</view>
+</view>
+

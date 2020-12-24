@@ -28,12 +28,19 @@ object WXGlobal extends js.Object {
   def getCurrentPages(): js.Array[Page] = js.native
   def setTimeout(callback: js.Function, timeout: Int): Int = js.native
   def clearTimeout(timer: Int): Unit = js.native
+  def require(file: String): js.Dynamic = js.native
 }
 
 @js.native
 @JSGlobal
 class RequestTask extends js.Object {
   def abort (): Unit = js.native
+}
+
+@js.native
+@JSGlobal("module")
+object module extends js.Object {
+  val exports: js.Dynamic = js.native
 }
 
 @js.native

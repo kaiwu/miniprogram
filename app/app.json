@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000",
+    "backgroundColor": "#eeeeee",
+    "navigationBarTitleText": "Scala.js",
+    "navigationBarTextStyle":"white"
+  }
+}
