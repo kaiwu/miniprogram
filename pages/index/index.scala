@@ -5,9 +5,8 @@ import miniprogram._
 object Main {
   val common = WXGlobal.require("../../common.js")
   val page = literal(
-    onLoad = (query: js.Dynamic) => {
-      common.setData(literal("label" -> "ZIO Scala.js"))
-    }
+    onLoad = (query: js.Dynamic) => common.index.onLoad(query),
+    onShow = () => common.index.onShow()
   )
 
   def main(args: Array[String]): Unit = {

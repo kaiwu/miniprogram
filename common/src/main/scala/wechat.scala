@@ -3,7 +3,7 @@ package miniprogram
 import scala.scalajs.js
 import js.Dynamic.literal
 import scala.scalajs.js.annotation._
-import zio.{IO, UIO, ZIO}
+import zio.{ZIO,UIO,Task}
 
 @JSExportTopLevel("Wechat")
 object Wechat {
@@ -20,7 +20,11 @@ object Wechat {
 
 object Main {
   def main(args: Array[String]): Unit = {
-    import Wechat._
-    module.exports.setData = setData _
+    import pages._
+    module.exports.index =
+      literal(
+        "onLoad" -> index.onLoad _,
+        "onShow" -> index.onShow _,
+      )
   }
 }
