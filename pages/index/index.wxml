@@ -1,7 +1,13 @@
 <wxs module="Index">
 </wxs>
-<view>
-  <button wx:if="{{canIUse}}" size="mini" type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button>
-  <view wx:else></view>
+<view class="page">
+    <view class="page__hd">
+      <image class="avatar" src="{{avatarUrl}}"></image>
+      <text class="nick">{{nickName}}</text>
+    </view>
+    <view class="page__bd page__bd_spacing">
+      <button wx:if="{{canIUse}}" class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权</button>
+      <view wx:else></view>
+    </view>
 </view>
 
