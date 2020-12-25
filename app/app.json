@@ -6,7 +6,7 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
     "backgroundColor": "#eeeeee",
-    "navigationBarTitleText": "Scala.js",
+    "navigationBarTitleText": "Scala.js with ZIO",
     "navigationBarTextStyle":"white"
   }
 }

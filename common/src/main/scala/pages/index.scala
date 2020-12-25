@@ -1,19 +1,31 @@
 package pages
 
+import zio._
 import scala.scalajs.js
 import js.Dynamic.literal
-import zio.{ZIO,Runtime}
 import miniprogram.Wechat._
 
 object index {
   val runtime = Runtime.default
-  def onLoad(query: js.Dynamic) = {
-    runtime.unsafeRun(ZIO(println("onLoad!")))
-    setData(literal("label" -> "on load from common"))
+  val load = for {
+    settings <- getSetting(false) map {_.authSetting}
+    _        <- console.putStrLn(js.JSON.stringify(settings))
+    if settings.asInstanceOf[js.Dictionary[Boolean]].get("scope.userInfo") == Some(true)
+    userinfo <- getUserInfo(false, "zh_CN") map {_.userInfo}
+    _        <- setData(userinfo)
+  } yield ()
+
+  def onLoad(query: js.Dynamic): Unit = {
   }
 
-  def onShow() = {
-    runtime.unsafeRun(ZIO(println("onShow!")))
+  def onShow(): Unit = {
+    // runtime.unsafeRun(ZIO(println("onShow!")))
+  }
+
+  def getUser(e: js.Dynamic): Unit = {
+    // e.detail.errMsg = "getUserInfo:fail auth deny"
+    // e.detail.errMsg = "getUserInfo:ok"
+    runtime.unsafeRunAsync(load)(_ => println("DONE"))
   }
 }
 

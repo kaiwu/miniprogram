@@ -1,6 +1,7 @@
 <wxs module="Index">
 </wxs>
 <view>
-  <view>{{label}}</view>
+  <button wx:if="{{canIUse}}" size="mini" type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button>
+  <view wx:else></view>
 </view>
 

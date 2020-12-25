@@ -67,6 +67,7 @@ object wx extends js.Object {
   def checkSession (o: js.Object): Unit = js.native
   def getSetting (o: js.Object): Unit = js.native
   def authorize (o: js.Object): Unit = js.native
+  def getUserInfo (o: js.Object): Unit = js.native
 
   def getLocation (o: js.Object): Unit = js.native
   def chooseLocation (o: js.Object): Unit = js.native
