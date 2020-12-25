@@ -1,7 +1,6 @@
 name := "Scala.js miniprogram"
 scalaVersion := "2.13.4"
 
-// libraryDependencies += "dev.zio" %%% "zio" % "1.0.3"
 // libraryDependencies += "dev.zio" %%% "zio-test" % "1.0.3" % "test"
 // libraryDependencies += "dev.zio" %%% "zio-test-sbt" % "1.0.3" % "test"
 // testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
@@ -28,7 +27,7 @@ lazy val commonSettings = Seq(
     mappings in Assets := (mappings in sources in Assets).value,
     includeFilter in Assets := new SimpleFileFilter(_.getParent == baseDirectory.value + "/lib") || "*.wxml" || "*.json" ,
     includeFilter in (Assets, LessKeys.less) := "*.less",
-    excludeFilter in (Assets, LessKeys.less) := "*.wxss",
+    excludeFilter in (Assets, LessKeys.less) := new SimpleFileFilter(_.getAbsolutePath.contains("style")) || "*.wxss",
     managedSources in (Assets, LessKeys.less) := (sourceDirectory in Assets).value.descendantsExcept((includeFilter in (Assets, LessKeys.less)).value, excludeFilter.value).get,
     LessKeys.sourceMap in Assets := false,
     LessKeys.compress in Assets := true,
