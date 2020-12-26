@@ -1,5 +1,3 @@
-[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-1.3.0.svg)](https://www.scala-js.org)
-
 # Miniprogram meets ZIO
 
 Since last [update on WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs), a great many have progressed:
@@ -7,10 +5,10 @@ Since last [update on WeApp meets Scala.js](https://github.com/kaiwu/weui-scalaj
 1. Scala has released 2.13.4
 2. Scala.js has released 1.3.1
 3. Sbt has released 1.4.5
-4. ZIO was borned and it is 1.0.3 now
+4. ZIO was born and it is 1.0.3 now
 5. Miniprogram has also significant changes and it supports modules !
 
-Phew !!! What is cooler than writing miniprograms using Scala.js? write them in ZIO !!! (什么比用Scala.js写小程序更屌呢？ 用ZIO呗)
+Phew !!! What is cooler than writing miniprograms with Scala.js? write them in ZIO !!!
 
 ```Scala
   def load(condition: String): ZIO[console.Console with Grant, Throwable, Unit] = for {
@@ -27,7 +25,9 @@ Phew !!! What is cooler than writing miniprograms using Scala.js? write them in 
 
   def getUser(e: js.Dynamic): Unit = {
     val env = console.Console.live ++ Grant.live
-    runtime.unsafeRunAsync(load(e.detail.errMsg.asInstanceOf[String]).provideLayer(env))(_ => println("DONE"))
+    runtime
+      .unsafeRunAsync(load(e.detail.errMsg.asInstanceOf[String])
+      .provideLayer(env))(_ => println("DONE"))
   }
 ```
 
@@ -57,7 +57,7 @@ sbt > assets
 
 ### 3. cleanup
 
-Now we have the miniprogram in `target` after cleanup, Scala.js generates straight ES6 so it fits miniprograms perfectly
+Now we have the miniprogram in `target` after cleanup, Scala.js generates straight ES6 and it fits miniprograms perfectly
 
 ```
 shell $ ./cleanup.sh

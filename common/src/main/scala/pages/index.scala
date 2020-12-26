@@ -32,7 +32,7 @@ object index {
     approve  <- Grant.approve(condition)
     -        <- console.putStrLn(s"approve is ${approve}")
     if approve
-    settings <- getSetting(false) map {_.authSetting}
+    settings <- getSetting(false) { println("get setting is done") } map {_.authSetting}
     _        <- console.putStrLn(js.JSON.stringify(settings))
     if settings.asInstanceOf[js.Dictionary[Boolean]].get("scope.userInfo") == Some(true)
     userinfo <- getUserInfo(false, "zh_CN") map {_.userInfo}
@@ -50,7 +50,9 @@ object index {
     // e.detail.errMsg = "getUserInfo:fail auth deny"
     // e.detail.errMsg = "getUserInfo:ok"
     val env = console.Console.live ++ Grant.live
-    runtime.unsafeRunAsync(load(e.detail.errMsg.asInstanceOf[String]).provideLayer(env))(_ => println("DONE"))
+    runtime
+      .unsafeRunAsync(load(e.detail.errMsg.asInstanceOf[String])
+      .provideLayer(env))(_ => println("DONE"))
   }
 }
 

@@ -1,5 +1,7 @@
 name := "Scala.js miniprogram"
 scalaVersion := "2.13.4"
+scalacOptions += "-deprecation"
+scalacOptions += "-feature"
 
 // libraryDependencies += "dev.zio" %%% "zio-test" % "1.0.3" % "test"
 // libraryDependencies += "dev.zio" %%% "zio-test-sbt" % "1.0.3" % "test"
