@@ -11,10 +11,10 @@ import  com.typesafe.sbt.web._
 import  Import.WebKeys._
 
 lazy val root = (project in file(".")).aggregate(common, app, images, index)
-lazy val facede = (project in file("facede")).enablePlugins(ScalaJSPlugin)
+lazy val facade = (project in file("facade")).enablePlugins(ScalaJSPlugin)
 
 lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
-    .dependsOn(facede)
+    .dependsOn(facade)
     .settings(
       scalaJSUseMainModuleInitializer := true,
       libraryDependencies ++= Seq("dev.zio" %%% "zio" % "1.0.3"),
@@ -47,7 +47,7 @@ lazy val componentSettings = Seq(
 
 lazy val app  = (project in file("app"))
     .enablePlugins(SbtWeb,ScalaJSPlugin,BuildInfoPlugin,GitVersioning)
-    .dependsOn(facede)
+    .dependsOn(facade)
     .settings(
       commonSettings,
       webTarget := target.value / ".." / ".." / "target",
@@ -69,5 +69,5 @@ lazy val images = (project in file("images"))
       webTarget := target.value / ".." / ".." / "target" / name.value
     )
 
-lazy val index  = (project in file("pages/index")).enablePlugins(SbtWeb,ScalaJSPlugin).dependsOn(facede).settings(commonSettings)
+lazy val index  = (project in file("pages/index")).enablePlugins(SbtWeb,ScalaJSPlugin).dependsOn(facade).settings(commonSettings)
 
