@@ -17,7 +17,7 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
     .dependsOn(facade)
     .settings(
       scalaJSUseMainModuleInitializer := true,
-      libraryDependencies ++= Seq("dev.zio" %%% "zio" % "1.0.3"),
+      libraryDependencies ++= Seq("dev.zio" %%% "zio" % "1.0.4"),
       webTarget := target.value / ".." / ".." / "target",
       artifactPath in fullOptJS in Compile := webTarget.value / (name.value + ".js")
     )
