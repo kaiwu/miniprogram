@@ -30,7 +30,7 @@ lazy val commonSettings = Seq(
     Assets / includeFilter := new SimpleFileFilter(_.getParent == baseDirectory.value + "/lib") || "*.wxml" || "*.json" ,
     Assets / LessKeys.less / includeFilter := "*.less",
     Assets / LessKeys.less / excludeFilter := new SimpleFileFilter(_.getAbsolutePath.contains("style")) || "*.wxss",
-    Assets / LessKeys.less / managedSources := (Assets / sourceDirectory).value.descendantsExcept((includeFilter in (Assets, LessKeys.less)).value, excludeFilter.value).get,
+    Assets / LessKeys.less / managedSources := (Assets / sourceDirectory).value.descendantsExcept((Assets / LessKeys.less / includeFilter).value, excludeFilter.value).get,
     Assets / LessKeys.sourceMap := false,
     Assets / LessKeys.compress := true,
     scalaJSUseMainModuleInitializer := true,
