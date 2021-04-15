@@ -3,10 +3,6 @@ scalaVersion := "2.13.5"
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
 
-// libraryDependencies += "dev.zio" %%% "zio-test" % "1.0.3" % "test"
-// libraryDependencies += "dev.zio" %%% "zio-test-sbt" % "1.0.3" % "test"
-// testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
-
 import  com.typesafe.sbt.web._
 import  Import.WebKeys._
 
@@ -17,7 +13,10 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
     .dependsOn(facade)
     .settings(
       scalaJSUseMainModuleInitializer := true,
-      libraryDependencies ++= Seq("dev.zio" %%% "zio" % "1.0.4"),
+      libraryDependencies ++= Seq(
+      "io.github.cquiroz" %%% "scala-java-time" % "2.2.0",
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.2.0",
+      "dev.zio" %%% "zio" % "1.0.6"),
       webTarget := target.value / ".." / ".." / "target",
       Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
     )
