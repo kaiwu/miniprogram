@@ -19,29 +19,29 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
       scalaJSUseMainModuleInitializer := true,
       libraryDependencies ++= Seq("dev.zio" %%% "zio" % "1.0.4"),
       webTarget := target.value / ".." / ".." / "target",
-      artifactPath in fullOptJS in Compile := webTarget.value / (name.value + ".js")
+      Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
     )
                   
 lazy val commonSettings = Seq(
-    sourceDirectory in Assets := baseDirectory.value,
-    public in Assets := webTarget.value,
-    resourceManaged in (Assets, LessKeys.less) := webTarget.value,
-    mappings in Assets := (mappings in sources in Assets).value,
-    includeFilter in Assets := new SimpleFileFilter(_.getParent == baseDirectory.value + "/lib") || "*.wxml" || "*.json" ,
-    includeFilter in (Assets, LessKeys.less) := "*.less",
-    excludeFilter in (Assets, LessKeys.less) := new SimpleFileFilter(_.getAbsolutePath.contains("style")) || "*.wxss",
-    managedSources in (Assets, LessKeys.less) := (sourceDirectory in Assets).value.descendantsExcept((includeFilter in (Assets, LessKeys.less)).value, excludeFilter.value).get,
-    LessKeys.sourceMap in Assets := false,
-    LessKeys.compress in Assets := true,
+    Assets / sourceDirectory := baseDirectory.value,
+    Assets / public := webTarget.value,
+    Assets / LessKeys.less / resourceManaged := webTarget.value,
+    Assets / mappings := (Assets / sources / mappings).value,
+    Assets / includeFilter := new SimpleFileFilter(_.getParent == baseDirectory.value + "/lib") || "*.wxml" || "*.json" ,
+    Assets / LessKeys.less / includeFilter := "*.less",
+    Assets / LessKeys.less / excludeFilter := new SimpleFileFilter(_.getAbsolutePath.contains("style")) || "*.wxss",
+    Assets / LessKeys.less / managedSources := (Assets / sourceDirectory).value.descendantsExcept((includeFilter in (Assets, LessKeys.less)).value, excludeFilter.value).get,
+    Assets / LessKeys.sourceMap := false,
+    Assets / LessKeys.compress := true,
     scalaJSUseMainModuleInitializer := true,
     webTarget := target.value / ".." / ".." / ".." / "target" / "pages" / name.value,
-    artifactPath in fullOptJS in Compile := webTarget.value / (name.value + ".js")
+    Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
 )                
 
 lazy val componentSettings = Seq(
-    sourceDirectory in Assets := baseDirectory.value,
-    public in Assets := webTarget.value,
-    includeFilter in Assets := "*.js" | "*.json" | "*.wxss" | "*.svg" | "*.wxml" | "*.jpg" | "*.png",
+    Assets / sourceDirectory := baseDirectory.value,
+    Assets / public := webTarget.value,
+    Assets / includeFilter := "*.js" | "*.json" | "*.wxss" | "*.svg" | "*.wxml" | "*.jpg" | "*.png",
     webTarget := target.value / ".." / ".." / ".." / "target" / "components" / name.value
 )
 
@@ -63,9 +63,9 @@ lazy val app  = (project in file("app"))
 lazy val images = (project in file("images"))
     .enablePlugins(SbtWeb)
     .settings(
-      sourceDirectory in Assets := baseDirectory.value,
-      public in Assets := webTarget.value,
-      includeFilter in Assets := "*.png" | "*.jpg",
+      Assets / sourceDirectory := baseDirectory.value,
+      Assets / public := webTarget.value,
+      Assets / includeFilter := "*.png" | "*.jpg",
       webTarget := target.value / ".." / ".." / "target" / name.value
     )
 
