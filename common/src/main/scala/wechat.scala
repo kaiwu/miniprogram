@@ -39,6 +39,9 @@ object Wechat {
       }
     }
 
+  def predicate(condition: =>Boolean) : IO[WechatError, Unit] =
+    if (condition) IO.succeed() else IO.fail(js.JavaScriptException())
+
   def openDocument(filePath: String, fileType: String)(implicit cb: Callback): IO[WechatError, Unit] =
     IO.effectAsync[WechatError, Unit] { callback => {
         val scb = () => callback(IO.succeed(()))
