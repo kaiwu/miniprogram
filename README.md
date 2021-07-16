@@ -12,13 +12,13 @@ Phew !!! What is cooler than writing miniprograms with Scala.js? write them in Z
 
 ```Scala
   def load(condition: String): ZIO[console.Console with Grant, Throwable, Unit] = for {
-    -        <- console.putStrLn(s"condition is ${condition}")
+    _        <- console.putStrLn(s"condition is ${condition}")
     approve  <- Grant.approve(condition)
-    -        <- console.putStrLn(s"approve is ${approve}")
-    if approve
-    settings <- getSetting(false) map {_.authSetting}
+    _        <- console.putStrLn(s"approve is ${approve}")
+    _        <- predicate(approve)
+    settings <- getSetting(false) { println("get setting is done") } map {_.authSetting}
     _        <- console.putStrLn(js.JSON.stringify(settings))
-    if settings.asInstanceOf[js.Dictionary[Boolean]].get("scope.userInfo") == Some(true)
+    _        <- predicate(settings.asInstanceOf[js.Dictionary[Boolean]].get("scope.userInfo") == Some(true))
     userinfo <- getUserInfo(false, "zh_CN") map {_.userInfo}
     _        <- setData(userinfo)
   } yield ()
