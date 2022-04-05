@@ -1,4 +1,4 @@
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.9.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.4")
 addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.1.3-SNAPSHOT")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
