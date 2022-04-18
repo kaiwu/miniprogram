@@ -1,5 +1,5 @@
 name := "Scala.js miniprogram"
-scalaVersion := "3.1.1"
+scalaVersion := "3.1.2"
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
 
