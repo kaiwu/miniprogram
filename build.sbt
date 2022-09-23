@@ -1,5 +1,5 @@
 name := "Scala.js miniprogram"
-scalaVersion := "3.1.2"
+scalaVersion := "3.2.0"
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
 
@@ -16,7 +16,7 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
       libraryDependencies ++= Seq(
       "io.github.cquiroz" %%% "scala-java-time" % "2.2.0",
       "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.2.0",
-      "dev.zio" %%% "zio" % "1.0.14"),
+      "dev.zio" %%% "zio" % "1.0.17"),
       webTarget := target.value / ".." / ".." / "target",
       Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
     )
