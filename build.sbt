@@ -13,6 +13,12 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
     .dependsOn(facade)
     .settings(
       scalaJSUseMainModuleInitializer := true,
+      libraryDependencies ++= Seq(
+        "org.typelevel" %%% "cats-core" % "2.9.0",
+        "org.typelevel" %%% "cats-effect-kernel" % "3.5.0",
+        "org.typelevel" %%% "cats-effect-std"    % "3.5.0",
+        "org.typelevel" %%% "cats-effect"        % "3.5.0",
+      ),
       webTarget := target.value / ".." / ".." / "target",
       Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
     )

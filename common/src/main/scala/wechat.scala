@@ -4,6 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation._
 import scala.concurrent.{Future,Promise}
 import scala.language.implicitConversions
+import cats.effect.{IO}
 
 import js.Dynamic.literal
 
