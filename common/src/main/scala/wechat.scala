@@ -49,6 +49,12 @@ object Wechat {
 
 object Main {
   def main(args: Array[String]): Unit = {
+    module.exports.app =
+      literal(
+        "onLaunch" -> WechatApp.onLaunch _,
+        "onShow" -> WechatApp.onShow _,
+      )
+
     import pages._
     module.exports.index =
       literal(
