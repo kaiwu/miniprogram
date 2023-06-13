@@ -20,8 +20,9 @@ object index {
     println(s"forty two is: ${app.get("fortytwo")}")
 
     val login = for {
-      _  <- Wechat.setStorage("appid", app.get("appid")){}
-      _  <- IO.println("everything is ok")
+      f1 <- Wechat.login{}
+      _  <- IO.println(f1.code)
+      _  <- Wechat.setStorage("code", f1.code){}
     } yield ()
 
     login.unsafeRunAsync(callback => {})
