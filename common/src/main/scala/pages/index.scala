@@ -21,7 +21,7 @@ object index {
 
     val login = for {
       f1 <- Wechat.login{}
-      _  <- IO.println(f1.code)
+      _  <- IO.println(s"code is ${f1.code}")
       _  <- Wechat.setStorage("code", f1.code){}
     } yield ()
 

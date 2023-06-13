@@ -10,6 +10,7 @@ object Main {
     get = (k: String) => globalData(k),
     onLaunch = (info: js.Dynamic) => {
       println("App Launch: " + js.JSON.stringify(info))
+      js.Dynamic.global.Promise.resolved = js.Dynamic.global.Promise.resolve
     },
     onShow = (info: js.Dynamic) => {
       println("App Show: " + js.JSON.stringify(info))
