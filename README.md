@@ -1,34 +1,9 @@
-# Miniprogram meets ZIO
+# Miniprogram meets Cats Effect
 
-Since last [update on WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs), a great many have progressed:
-
-1. Scala has released 2.13.4
-2. Scala.js has released 1.3.1
-3. Sbt has released 1.4.5
-4. ZIO was born and it is 1.0.3 now
-5. Miniprogram has also significant changes and it supports modules !
-
-Phew !!! What is cooler than writing miniprograms with Scala.js? write them in ZIO !!!
+As promised, this is an update from [update on WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs) 
+leveraging both Scala 3 and [Cats Effect](https://typelevel.org/cats-effect/)
 
 ```Scala
-  def load(condition: String): ZIO[console.Console with Grant, Throwable, Unit] = for {
-    _        <- console.putStrLn(s"condition is ${condition}")
-    approve  <- Grant.approve(condition)
-    _        <- console.putStrLn(s"approve is ${approve}")
-    _        <- predicate(approve)
-    settings <- getSetting(false) { println("get setting is done") } map {_.authSetting}
-    _        <- console.putStrLn(js.JSON.stringify(settings))
-    _        <- predicate(settings.asInstanceOf[js.Dictionary[Boolean]].get("scope.userInfo") == Some(true))
-    userinfo <- getUserInfo(false, "zh_CN") map {_.userInfo}
-    _        <- setData(userinfo)
-  } yield ()
-
-  def getUser(e: js.Dynamic): Unit = {
-    val env = console.Console.live ++ Grant.live
-    runtime
-      .unsafeRunAsync(load(e.detail.errMsg.asInstanceOf[String])
-      .provideLayer(env))(_ => println("DONE"))
-  }
 ```
 
 ## How to use
@@ -62,13 +37,6 @@ Now we have the miniprogram in `target` after cleanup, Scala.js generates straig
 ```
 shell $ ./cleanup.sh
 ```
-
-## Caveats
-
-1. For miniprograms ZIO is still huge ! luckily miniprogram supports modules now, so we can maintain a single compiled ZIO in `common` and proxy the calls from pages
-2. Compile ZIO is relatively slow ... apparently my hardware has not progressed as much 
-3. Next update ? probably after Scala 3 ...
-   
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)

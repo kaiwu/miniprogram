@@ -19,11 +19,12 @@ object index {
     println(s"index onShow: ${app.getRevision()}")
     println(s"forty two is: ${app.get("fortytwo")}")
 
+    import Wechat.callback
     val login = for {
-      f1 <- Wechat.login{}
+      f1 <- Wechat.login
       _  <- IO.println(s"code is ${f1.code}")
-      _  <- Wechat.setStorage("code", f1.code){}
-      _  <- Wechat.setData(literal(nickName = f1.code)){}
+      _  <- Wechat.setStorage("code", f1.code)
+      _  <- Wechat.setData(literal(nickName = f1.code))
     } yield ()
 
     login.unsafeRunAsync(callback => {})
