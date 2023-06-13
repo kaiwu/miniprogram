@@ -12,14 +12,31 @@ import js.Dynamic.literal
 object Wechat {
   type Callback = () => Unit 
   type ErrorCallback = (Throwable) => Unit
-  type WechatError = js.JavaScriptException
   implicit val callback: Callback = () => {}
   implicit val errorCallback: ErrorCallback = (e: Throwable) => { println(e) }
   implicit def makeCallback(c: =>Unit): Callback = () => c
 
-  def setData(d: js.Dynamic)(implicit f: Callback): IO[Unit] = {
-    IO.pure()
-  }
+  def setData(d: js.Dynamic)(implicit f: Callback): IO[Unit] =
+    IO({
+      val page = WXGlobal.getCurrentPages().last
+      page.setData(d, f)
+    })
+
+  def login(implicit cb: Callback): IO[js.Dynamic] =
+    IO.async(callback => {
+        val scb = (ret: js.Dynamic) => callback(Right(ret))
+        val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+        wx.login(literal(success = scb, fail = fcb, complete = cb))
+        IO.none
+    })
+
+  def request(method: String,url: String,header: js.Dynamic,data: js.Dynamic)(implicit cb: Callback): IO[js.Dynamic] =
+    IO.async(callback => {
+        val scb = (ret: js.Dynamic) => callback(Right(ret))
+        val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+        val _ = wx.request(literal(url = url,data = data,header = header,method = method,success = scb,fail = fcb,complete = cb))
+        IO.none
+    })
 }
 
 object Main {
