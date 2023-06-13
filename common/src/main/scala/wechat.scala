@@ -16,10 +16,10 @@ object Wechat {
   implicit val errorCallback: ErrorCallback = (e: Throwable) => { println(e) }
   implicit def makeCallback(c: =>Unit): Callback = () => c
 
-  def setData(d: js.Dynamic)(implicit f: Callback): IO[Unit] =
+  def setData(d: js.Dynamic)(f: =>Unit): IO[Unit] =
     IO({
       val page = WXGlobal.getCurrentPages().last
-      page.setData(d, f)
+      page.setData(d, ()=>f)
     })
 
   def login(cb: =>Unit): IO[js.Dynamic] =
