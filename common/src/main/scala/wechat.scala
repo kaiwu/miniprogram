@@ -16,6 +16,10 @@ object Wechat {
   implicit val callback: Callback = () => {}
   implicit val errorCallback: ErrorCallback = (e: Throwable) => { println(e) }
   implicit def makeCallback(c: =>Unit): Callback = () => c
+
+  def setData(d: js.Dynamic)(implicit f: Callback): IO[Unit] = {
+    IO.pure()
+  }
 }
 
 object Main {

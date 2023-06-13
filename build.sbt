@@ -2,6 +2,8 @@ name := "Scala.js miniprogram"
 scalaVersion := "3.3.1"
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
+scalacOptions += "-unchecked"
+scalacOptions += "-language:postfixOps"
 
 import  com.typesafe.sbt.web._
 import  Import.WebKeys._
@@ -32,7 +34,7 @@ lazy val commonSettings = Seq(
     Assets / LessKeys.less / includeFilter := "*.less",
     Assets / LessKeys.less / excludeFilter := new SimpleFileFilter(_.getAbsolutePath.contains("style")) || "*.wxss",
     Assets / LessKeys.less / managedSources := (Assets / sourceDirectory).value.descendantsExcept((Assets / LessKeys.less / includeFilter).value, excludeFilter.value).get,
-    Assets / LessKeys.sourceMap := false,
+    Assets / LessKeys.sourceMap := true,
     Assets / LessKeys.compress := true,
     scalaJSUseMainModuleInitializer := true,
     webTarget := target.value / ".." / ".." / ".." / "target" / "pages" / name.value,
