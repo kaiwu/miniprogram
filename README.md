@@ -1,3 +1,5 @@
+[![Scala.js](https://www.scala-js.org/assets/badges/scalajs-1.13.0.svg)](https://www.scala-js.org)
+
 # Miniprogram meets Cats Effect
 
 As promised, this is an update from [WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs) 
