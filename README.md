@@ -1,6 +1,6 @@
 # Miniprogram meets Cats Effect
 
-As promised, this is an update from [update on WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs) 
+As promised, this is an update from [WeApp meets Scala.js](https://github.com/kaiwu/weui-scalajs) 
 leveraging both Scala 3 and [Cats Effect](https://typelevel.org/cats-effect/)
 
 ```Scala
