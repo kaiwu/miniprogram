@@ -10,7 +10,7 @@ import js.Dynamic.literal
 
 @JSExportTopLevel("Wechat")
 object Wechat {
-  type Callback = () => Unit 
+  type Callback = () => Unit
   type ErrorCallback = (Throwable) => Unit
   implicit val callback: Callback = () => {}
   implicit val errorCallback: ErrorCallback = (e: Throwable) => { println(e) }
@@ -45,6 +45,70 @@ object Wechat {
         wx.setStorage(literal(key = key, data = value, success = scb, fail = fcb, complete = cb))
         IO.none
     })
+
+   def getStorage(key: String)(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret.data))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.getStorage(literal(key = key, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def removeStorage(key: String)(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.removeStorage(literal(key = key, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def saveFile(tempFilePath: String)(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.saveFile(literal(tempFilePath = tempFilePath, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def openDocument(filePath: String, fileType: String)(implicit cb: Callback): IO[Unit] =
+     IO.async(callback => {
+         val scb = () => callback(Right(()))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.openDocument(literal(filePath = filePath, fileType = fileType, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def getSystemInfo(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.getSystemInfo(literal(success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def getUserInfo(withCredentials: Boolean, lang: String)(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async( callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.getUserInfo(literal(withCredentials = withCredentials, lang = lang, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def getSetting(withSubscriptions: Boolean)(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.getSetting(literal(withSubscriptions = withSubscriptions, success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
+
+   def checkSession(implicit cb: Callback): IO[js.Dynamic] =
+     IO.async(callback => {
+         val scb = (ret: js.Dynamic) => callback(Right(ret))
+         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+         wx.checkSession(literal(success = scb, fail = fcb, complete = cb))
+         IO.none
+     })
 }
 
 object Main {
@@ -60,6 +124,7 @@ object Main {
       literal(
         "onLoad" -> index.onLoad _,
         "onShow" -> index.onShow _,
+        "onReady" -> index.onReady _,
         "getUserInfo" -> index.getUser _,
       )
   }

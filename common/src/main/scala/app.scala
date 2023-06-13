@@ -10,10 +10,7 @@ object WechatApp {
     def onLaunch(info: js.Dynamic): Unit = {
       println("App Launch: " + js.JSON.stringify(info))
       js.Dynamic.global.Promise.resolved = js.Dynamic.global.Promise.resolve
-    }
 
-    def onShow(info: js.Dynamic): Unit = {
-      println("App Show: " + js.JSON.stringify(info))
       import Wechat.callback
       val login = for {
         f1 <- Wechat.login
@@ -22,6 +19,10 @@ object WechatApp {
       } yield ()
 
       login.unsafeRunAsync(callback => {})
+    }
+
+    def onShow(info: js.Dynamic): Unit = {
+      println("App Show: " + js.JSON.stringify(info))
     }
 }
 

@@ -8,6 +8,7 @@ object Main {
     data = literal(canIUse = wx.canIUse("button.open-type.getUserInfo")),
     onLoad = (query: js.Dynamic) => common.index.onLoad(query),
     onShow = () => common.index.onShow(),
+    onReady = () => common.index.onReady(),
     getUserInfo = (e: js.Dynamic) => common.index.getUserInfo(e)
   )
 
