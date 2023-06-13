@@ -4,6 +4,14 @@ As promised, this is an update from [WeApp meets Scala.js](https://github.com/ka
 leveraging both Scala 3 and [Cats Effect](https://typelevel.org/cats-effect/)
 
 ```Scala
+  import Wechat.callback
+  val login = for {
+    f1 <- Wechat.login
+    _  <- IO.println(s"code is ${f1.code}")
+    _  <- Wechat.setStorage("code", f1.code)
+  } yield ()
+
+  login.unsafeRunAsync(callback => {})
 ```
 
 ## How to use
