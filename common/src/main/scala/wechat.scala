@@ -22,19 +22,27 @@ object Wechat {
       page.setData(d, f)
     })
 
-  def login(implicit cb: Callback): IO[js.Dynamic] =
+  def login(cb: =>Unit): IO[js.Dynamic] =
     IO.async(callback => {
         val scb = (ret: js.Dynamic) => callback(Right(ret))
         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
-        wx.login(literal(success = scb, fail = fcb, complete = cb))
+        wx.login(literal(success = scb, fail = fcb, complete = () => cb))
         IO.none
     })
 
-  def request(method: String,url: String,header: js.Dynamic,data: js.Dynamic)(implicit cb: Callback): IO[js.Dynamic] =
+  def request(method: String,url: String,header: js.Dynamic,data: js.Dynamic)(cb: =>Unit): IO[js.Dynamic] =
     IO.async(callback => {
         val scb = (ret: js.Dynamic) => callback(Right(ret))
         val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
-        val _ = wx.request(literal(url = url,data = data,header = header,method = method,success = scb,fail = fcb,complete = cb))
+        val _ = wx.request(literal(url = url,data = data,header = header,method = method,success = scb,fail = fcb,complete = () =>cb))
+        IO.none
+    })
+
+  def setStorage(key: String, value: js.Dynamic)(cb: =>Unit): IO[Unit] =
+    IO.async(callback => {
+        val scb = () => callback(Right(()))
+        val fcb = (err: js.Dynamic) => callback(Left(js.JavaScriptException(err)))
+        wx.setStorage(literal(key = key, data = value, success = scb, fail = fcb, complete = () => cb))
         IO.none
     })
 }
