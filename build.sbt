@@ -1,5 +1,5 @@
 name := "Scala.js miniprogram"
-scalaVersion := "3.3.1"
+scalaVersion := "3.4.0"
 scalacOptions += "-deprecation"
 scalacOptions += "-feature"
 scalacOptions += "-unchecked"
@@ -16,10 +16,10 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
     .settings(
       scalaJSUseMainModuleInitializer := true,
       libraryDependencies ++= Seq(
-        "org.typelevel" %%% "cats-core" % "2.9.0",
-        "org.typelevel" %%% "cats-effect-kernel" % "3.5.0",
-        "org.typelevel" %%% "cats-effect-std"    % "3.5.0",
-        "org.typelevel" %%% "cats-effect"        % "3.5.0",
+        "org.typelevel" %%% "cats-core" % "2.10.0",
+        "org.typelevel" %%% "cats-effect-kernel" % "3.5.4",
+        "org.typelevel" %%% "cats-effect-std"    % "3.5.4",
+        "org.typelevel" %%% "cats-effect"        % "3.5.4",
       ),
       webTarget := target.value / ".." / ".." / "target",
       Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
