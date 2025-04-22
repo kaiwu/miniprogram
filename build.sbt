@@ -16,10 +16,10 @@ lazy val common = (project in file("common")).enablePlugins(ScalaJSPlugin)
     .settings(
       scalaJSUseMainModuleInitializer := true,
       libraryDependencies ++= Seq(
-        "org.typelevel" %%% "cats-core" % "2.10.0",
-        "org.typelevel" %%% "cats-effect-kernel" % "3.5.4",
-        "org.typelevel" %%% "cats-effect-std"    % "3.5.4",
-        "org.typelevel" %%% "cats-effect"        % "3.5.4",
+        "org.typelevel" %%% "cats-core" % "2.13.0",
+        "org.typelevel" %%% "cats-effect-kernel" % "3.6.1",
+        "org.typelevel" %%% "cats-effect-std"    % "3.6.1",
+        "org.typelevel" %%% "cats-effect"        % "3.6.1",
       ),
       webTarget := target.value / ".." / ".." / "target",
       Compile / fullOptJS / artifactPath := webTarget.value / (name.value + ".js")
